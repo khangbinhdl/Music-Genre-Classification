@@ -1,0 +1,16 @@
+{
+  "best_model": "soft_voting",
+  "classes": [
+    "blues",
+    "classical",
+    "country",
+    "disco",
+    "hiphop",
+    "jazz",
+    "metal",
+    "pop",
+    "reggae",
+    "rock"
+  ],
+  "feature_count": 58
+}

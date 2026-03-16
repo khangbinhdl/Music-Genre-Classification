@@ -1,0 +1,20 @@
+{
+  "model": "mlp",
+  "input_size": 58,
+  "num_classes": 10,
+  "classes": [
+    "blues",
+    "classical",
+    "country",
+    "disco",
+    "hiphop",
+    "jazz",
+    "metal",
+    "pop",
+    "reggae",
+    "rock"
+  ],
+  "train_score": 0.9991419991419992,
+  "test_score": 0.9312645979312646,
+  "device": "cpu"
+}

@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+streamlit
+numpy
+pandas
+scikit-learn
+librosa
+soundfile
+joblib
+matplotlib
+seaborn
+xgboost
+lightgbm
+tqdm
+torch
