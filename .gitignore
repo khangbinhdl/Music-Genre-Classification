@@ -23,5 +23,7 @@ env/
 .vscode/
 .idea/
 
+.models/
+
 # Logs
 *.log

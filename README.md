@@ -1,14 +1,52 @@
-# Music Genre Classification Inference Project
+# 🎵 Music Genre Classification Inference Project
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1S9P2BcgoNqyvvmIidDVVj5nxITxpiQA-?usp=sharing)
 
-Project structure to train models from GTZAN `features_3_sec.csv` to predict music genres from 3-second audio features. 
+Train models from GTZAN `features_3_sec.csv` to predict music genres from 3-second audio features.
 
 This repository is a production-style refactor of the original Colab notebook above, with GitHub Copilot support for code organization, refactoring, and building inference apps (FastAPI + Streamlit).
 
-## Benchmark Performance (Accuracy)
+## 📁 Project Structure
 
-Accuracy values below are collected from the notebook workflow and saved artifacts:
+```
+.
+├── src/                          # Source code
+│   ├── inference/                # Model inference
+│   │   ├── __init__.py
+│   │   ├── feature_extraction.py # Audio feature extraction
+│   │   └── predictor.py         # Predictor class
+│   ├── models/                   # Model definitions
+│   │   ├── __init__.py
+│   │   └── mlp.py               # Deep learning model
+│   ├── training/                 # Training scripts
+│   │   ├── __init__.py
+│   │   ├── train_machine_learning.py
+│   │   ├── train_deep_learning.py
+│   │   └── train_models.py
+│   ├── utils/                    # Utilities
+│   │   ├── __init__.py
+│   │   ├── common.py            # Common utilities
+│   │   └── visualize.py         # Visualization & evaluation
+│   └── __init__.py
+├── ui/                           # Streamlit frontend
+│   └── streamlit_app.py         # UI application
+├── api/                          # FastAPI backend
+│   └── fastapi_app.py           # API endpoints
+├── notebook/                     # Jupyter notebooks
+├── data/                         # Dataset files
+│   ├── features_3_sec.csv
+│   └── features_30_sec.csv
+├── models/                       # Pre-trained model weights
+│   ├── machine_learning/
+│   └── deep_learning/
+├── requirements.txt              # Python dependencies
+├── Makefile                      # Commands for easy execution
+└── README.md                     # This file
+```
+
+## 📊 Benchmark Performance (Accuracy)
+
+Accuracy values collected from notebook workflow and saved artifacts:
 
 - Machine learning models: `models/machine_learning/metrics.json`
 - Deep learning model (MLP): `models/deep_learning/metadata.json`
@@ -23,53 +61,93 @@ Accuracy values below are collected from the notebook workflow and saved artifac
 | Soft Voting Ensemble | 0.9243 |
 | MLP (Deep Learning) | **0.9313** |
 
-Best observed accuracy in this benchmark: **MLP (Deep Learning)**.
+**Best Model**: MLP (Deep Learning)
 
-*Note: These results may differ from the original Colab notebook because training/inference was re-run on MacBook using Apple Silicon MPS.*
+*Note: Results may differ from original Colab notebook due to re-running on MacBook with Apple Silicon MPS.*
 
-## Structure
+## ⚙️ Installation
 
-- `src/utils/common.py`: `set_seed` utility.
-- `src/utils/visualize.py`: `eval` function (confusion matrix + classification report).
-- `src/training/train_machine_learning.py`: train ML models and save artifacts.
-- `src/training/train_deep_learning.py`: train MLP model and save artifacts.
-- `src/training/train_models.py`: backward-compatible entrypoint for ML training.
-- `src/inference/feature_extraction.py`: extract 3-second audio features from `.wav` using `librosa`.
-- `src/inference/predictor.py`: shared predictor class for API and UI.
-- `fastapi_app.py`: inference API.
-- `streamlit_app.py`: Streamlit upload UI.
-- `models/`: output folder for artifacts.
+### 1. Install Dependencies
 
-## Install
+```bash
+make install
+```
+
+Or manually:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Train and Save PKL
+## 🏃 Running the Application
+
+### Option 1: Run Both Servers (Recommended)
+
+```bash
+make run
+```
+
+This starts:
+- **API Server**: http://127.0.0.1:8000
+- **Streamlit UI**: http://localhost:8501
+
+### Option 2: Run Separately
+
+```bash
+# Terminal 1: Start FastAPI
+make run-fastapi
+
+# Terminal 2: Start Streamlit
+make run-streamlit
+```
+
+## 📚 Training
+
+### Train Machine Learning Models
 
 ```bash
 make train-ml
 ```
 
-Train deep learning (MLP):
+### Train Deep Learning Model (MLP)
 
 ```bash
 make train-dl
 ```
 
-## Run FastAPI
+## 🎯 Model Selection
 
-```bash
-make run-fastapi
+In Streamlit UI, choose your preferred model:
+- **Best Model (Machine Learning)**: Soft Voting Ensemble (0.9243 accuracy)
+- **MLP (Deep Learning)**: Neural Network (0.9313 accuracy)
+
+## 📝 Model Specifications
+
+### Machine Learning Models
+
+- KNN, SVM (RBF), XGBoost, LightGBM
+- Ensemble voting (hard & soft)
+- Input: 3-second audio features (57 features)
+
+### Deep Learning (MLP)
+
+- Architecture: Multi-Layer Perceptron
+- Input dimension: 57 audio features
+- Max sequence length: 3 seconds
+- Output: 10 genre classes
+
+## 📋 API Endpoints
+
+### POST `/predict`
+
+Predict genre from audio file.
+
+**Request**: Multipart form with `file` field containing `.wav` audio
+
+**Response**:
+```json
+{
+  "genre": "string",
+  "confidence": 0.95
+}
 ```
-
-Test endpoint: `POST /predict` with multipart field name `file`.
-
-## Run Streamlit
-
-```bash
-make run-streamlit
-```
-
-In Streamlit, you can choose inference model: `Best Model (Machine Learning)` or `MLP (Deep Learning)`.
