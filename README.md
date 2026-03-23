@@ -1,6 +1,31 @@
 # Music Genre Classification Inference Project
 
-Project structure to train models from GTZAN `features_3_sec.csv` and run inference with FastAPI/Streamlit. Using ChatGPT for code generation, refactoring, and documentation.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1S9P2BcgoNqyvvmIidDVVj5nxITxpiQA-?usp=sharing)
+
+Project structure to train models from GTZAN `features_3_sec.csv` to predict music genres from 3-second audio features. 
+
+This repository is a production-style refactor of the original Colab notebook above, with GitHub Copilot support for code organization, refactoring, and building inference apps (FastAPI + Streamlit).
+
+## Benchmark Performance (Accuracy)
+
+Accuracy values below are collected from the notebook workflow and saved artifacts:
+
+- Machine learning models: `models/machine_learning/metrics.json`
+- Deep learning model (MLP): `models/deep_learning/metadata.json`
+
+| Model | Test Accuracy |
+| --- | ---: |
+| KNN | 0.8969 |
+| SVM (RBF) | 0.8415 |
+| XGBoost | 0.8959 |
+| LightGBM | 0.8992 |
+| Hard Voting Ensemble | 0.9139 |
+| Soft Voting Ensemble | 0.9243 |
+| MLP (Deep Learning) | **0.9313** |
+
+Best observed accuracy in this benchmark: **MLP (Deep Learning)**.
+
+*Note: These results may differ from the original Colab notebook because training/inference was re-run on MacBook using Apple Silicon MPS.*
 
 ## Structure
 
@@ -27,45 +52,11 @@ pip install -r requirements.txt
 make train-ml
 ```
 
-Equivalent command:
-
-```bash
-python -m src.training.train_machine_learning --data-csv data/features_3_sec.csv --output-dir models/machine_learning
-```
-
 Train deep learning (MLP):
 
 ```bash
 make train-dl
 ```
-
-Equivalent command:
-
-```bash
-python -m src.training.train_deep_learning --data-csv data/features_3_sec.csv --output-dir models/deep_learning
-```
-
-Generated ML artifacts (`models/machine_learning`):
-
-- `knn.pkl`
-- `svm_rbf.pkl`
-- `xgboost.pkl`
-- `lightgbm.pkl`
-- `hard_voting.pkl`
-- `soft_voting.pkl`
-- `best_model.pkl`
-- `scaler.pkl`
-- `label_encoder.pkl`
-- `feature_columns.pkl`
-- `metrics.json`
-- `metadata.json`
-
-Generated DL artifacts (`models/deep_learning`):
-
-- `mlp_checkpoint.pth` (contains: `model_state_dict`, `label2id`, `id2label`)
-- `scaler.pkl`
-- `feature_columns.pkl`
-- `metadata.json`
 
 ## Run FastAPI
 
