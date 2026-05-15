@@ -8,6 +8,9 @@ This repository is a production-style refactor of the original Colab notebook ab
 
 You can download the pre-trained model weights from this [Google Drive folder](https://drive.google.com/drive/folders/1brHks7I_8qJz80ypt4-6Hzcpkz0z79dI?usp=sharing) and place them in the `saved_models/` directory.
 
+## Description
+This project implements a music genre classification inference pipeline using FastAPI for the backend and Streamlit for the frontend. The application allows users to upload a `.wav` audio file, select a pre-trained model, and receive a predicted music genre along with class probabilities.  
+The backend handles audio feature extraction using Librosa, loads pre-trained machine learning and deep learning models, and serves predictions through a FastAPI endpoint. The frontend provides an intuitive interface for users to interact with the application, upload audio files, and view results.
 
 ## 📁 Project Structure
 
