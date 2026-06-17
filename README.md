@@ -61,8 +61,8 @@ Accuracy values collected from notebook workflow.
 | Hard Voting Ensemble Without Weights | 0.9136 |
 | Hard Voting Ensemble With Weights | 0.9189 |
 | Soft Voting Ensemble Without Weights | 0.9244 |
-| Soft Voting Ensemble With Weights | 0.9264 |
-| MLP (Deep Learning) | **0.9468** |
+| Soft Voting Ensemble With Weights | 0.9259 |
+| MLP (Deep Learning) | **0.9473** |
 
 **Best Model**: MLP (Deep Learning)
 
